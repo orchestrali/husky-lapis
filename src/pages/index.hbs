@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <!-- 
+      This is the main Handlebars template for the site 
+      - When the user visits the homepage or submits a color the app calls the endpoints in server.js
+      - The server script passes data in here and the Handlebars code builds it into the HTML page
+    -->
+    
+    <meta charset="utf-8" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{{seo.title}}</title>
+    
+    <!-- Meta tags for SEO and social sharing -->
+    <link rel="canonical" href="{{seo.url}}">
+    <meta name="description" content="{{seo.description}}">
+    <meta property="og:title" content="{{seo.title}}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{seo.url}}">
+    <meta property="og:description" content="{{seo.description}}">
+    <meta property="og:image" content="{{seo.image}}">
+    <meta name="twitter:card" content="summary">
+
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- This is a handlebars IF statement
+         Checking for a custom "color" parameter from server.js -->
+    {{#if color}} 
+    <!-- If there is a color value, update the style for the page title -->
+    <style>
+      .title {
+        color: {{color}};
+      }
+    </style>
+    {{/if}}    
+  </head>
+  <body>
+    <div id="container">
+      <div class="column">
+        <h3>
+          Change Ringing Mastermind
+        </h3>
+        <ul id="conduct">
+          <li id="start">Start</li>
+          <li id="reset">Reset</li>
+          <li id="menu">Menu</li>
+        </ul>
+        <div class="conduct" >
+          <ul>
+            <li><label for="speed">Row duration in seconds: </label>
+          <input id="speed" type="number" value="2.4" step="0.1"></li>
+            <li><input id="waitforme" type="checkbox" /><label for="waitforme">Wait for me</label></li>
+          </ul>
+          
+        </div>
+        <div id="composition" class="hidden">
+          
+          <div id="method" class="conduct">
+            <h5>
+              Choose a method or composition
+            </h5>
+            <ul>
+              <li><label for="methodname" >Search for a method:</label></li>
+              <li><input type="text" id="methodname" placeholder="Enter a complete method title (case sensitive)"/></li>
+              <li>
+                <label for="placenot">Or, select a stage and enter place notation: </label>
+                <select id="stage">
+                  <option value disabled selected></option>
+                  <option value="minimus">4</option>
+                  <option value="doubles">5</option>
+                  <option value="minor">6</option>
+                  <option value="triples">7</option>
+                  <option value="major">8</option>
+                  <option value="caters">9</option>
+                  <option value="royal">10</option>
+                  <option value="cinques">11</option>
+                  <option value="maximus">12</option>
+                  <option value="sextuples">13</option>
+                  <option value="fourteen">14</option>
+                  <option value="septuples">15</option>
+                  <option value="sixteen">16</option>
+                </select>
+                <input type="text" id="placenot" />
+                
+              </li>
+              
+              <li>
+                <label for="complib">Or, enter a complib.org composition id:</label>
+                <input type="text" id="complib" />
+              </li>
+            </ul>
+            
+          </div>
+          <p>
+            
+          </p>
+        </div>
+        <h4>
+          Sound
+        </h4>
+        <input type="range" id="volume" min="0" max="2" value="1" step="0.01" />
+        <h4>
+          View
+        </h4>
+        <ul id="trebleloc">
+          <li id="trebler"><input type="radio" name="trebleloc" value="right" checked />right to left</li>
+          <li id="treblel"><input type="radio" name="trebleloc" value="left" />left to right</li>
+        </ul>
+      </div>
+      <div class="column" id="room">
+        <div id="display">
+          
+        </div>
+        <div id="bells">
+          
+        </div>
+        <div id="controls">
+          
+        </div>
+      </div>
+    </div>
+    <div id="dialogUnderlay"></div>
+    <div id="startdialog" class="dialog">
+      <h4>
+        How to play
+      </h4>
+      <p>
+        Choose a method from the selections listed below. Click "Start", then each time a button acquires a blue aura, click on it. The single letters after each word on the buttons are the keyboard shortcut you can use instead of clicking (I recommend the spacebar for "places". At some point in the future these should be customizable). If you click the wrong button, it'll get a red aura to indicate you should click it again to undo the error.
+      </p>
+      <div id="methodmenu">
+        <div class="column">
+          <ul>
+            <li>Original Major</li>
+            <li>Bastow Little Bob Major</li>
+            <li>Forward Major</li>
+            <li>Kent Treble Bob Major</li>
+          </ul>
+        </div>
+        <div class="column">
+          <ul>
+            <li>Double Court Bob Minor</li>
+            <li>Double Norwich Court Bob Major</li>
+          </ul>
+        </div>
+        <div class="column">
+          <ul>
+            <li>Random</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="jquery.centre.js"></script>
+    <script src="client.js"></script>
+  </body>
+</html>
